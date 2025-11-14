@@ -60,6 +60,7 @@ cd analytics-backend
 ```bash
 docker-compose up --build
 
+---
 
 3. **Verify services**
 
