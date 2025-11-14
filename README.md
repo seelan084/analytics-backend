@@ -61,7 +61,7 @@ cd analytics-backend
 docker-compose up --build
 
 
-3. **Verify services
+3. **Verify services**
 
 Ingestion API: http://localhost:8000
 
