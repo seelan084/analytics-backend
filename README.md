@@ -55,8 +55,6 @@ git clone https://github.com/seelan084/analytics-backend.git
 cd analytics-backend
 ---
 
-## Setup Instructions
-
 2. **Build and start services**
 
 ```bash
