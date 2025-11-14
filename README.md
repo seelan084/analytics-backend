@@ -71,7 +71,9 @@ Redis: Default port 6379
 
 PostgreSQL: Default port 5432
 
+
 API Usage:
+
 Ingestion API
 
 Endpoint: POST /event
