@@ -1,0 +1,46 @@
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: analytics
+      POSTGRES_USER: analytics
+      POSTGRES_PASSWORD: analytics
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+
+  ingestion:
+    build:
+      context: ./ingestion
+    depends_on:
+      - redis
+    ports:
+      - "8000:8000"
+    environment:
+      REDIS_URL: redis://redis:6379/0
+
+  worker:
+    build:
+      context: ./worker
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      REDIS_URL: redis://redis:6379/0
+      DATABASE_URL: postgres://analytics:analytics@postgres:5432/analytics
+
+  reporting:
+    build:
+      context: ./reporting
+    depends_on:
+      - postgres
+    ports:
+      - "8001:8001"
+    environment:
+      DATABASE_URL: postgres://analytics:analytics@postgres:5432/analytics
